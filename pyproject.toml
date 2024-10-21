@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "wrtn-data-pipeline"
+version = "0.1.0"
+description = ""
+authors = ["sejeong-park <tpwjd29@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+playwright = "^1.47.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
