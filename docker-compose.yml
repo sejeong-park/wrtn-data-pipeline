@@ -1,0 +1,43 @@
+version: '3'
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}    # 루트 비밀번호
+      MYSQL_DATABASE: ${MYSQL_DATABASE}       # 데이터베이스 이름
+      MYSQL_USER: ${MYSQL_USER}                # 사용자 이름
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}         # 사용자 비밀번호
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - my_network
+
+  app:
+    build: .
+    container_name: python-container
+    command: ["/usr/local/bin/wait-for-it.sh", "db:3306", "--", "poetry", "run", "python", "app/main.py"]
+    volumes:
+      - .:/usr/src/app  # 올바른 경로로 수정
+    depends_on:
+      - db
+    networks:
+      - my_network
+    env_file:
+      - .env
+    environment:
+      MYSQL_HOST: ${MYSQL_HOST}
+      MYSQL_PORT: ${MYSQL_PORT}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  my_network:
+    driver: bridge
