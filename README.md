@@ -10,6 +10,7 @@
     - 카테고리 기준 별 10개 추출했습니다. (카테고리 테이블은 categories.csv로 저장했습니다)
 
 ### 실행 방법
+* .env 파일을 생성해서 최하단의 변수를 넣어주세요 
 * 컨테이너 실행
 ```
 # 컨테이너 실행
@@ -40,3 +41,13 @@ docker-compose up -d
 - 데이터 수집 시점과 DOM에 접근시점이 달랐던 문제가 있어, wait, state, load 등 대기 조건이 존재합니다. (수집 속도가 빠르진 않음)
 - 각 정보가 원하는대로 들어가있는지 체크하는 테스트코드 필수 (이해하지 못했습니다.)
 
+
+### .env 파일
+```
+WRTN_URL='https://wrtn.ai/character/explore'
+MYSQL_DATABASE=wrtn_proj
+MYSQL_USER=user
+MYSQL_PASSWORD=wrtn123
+MYSQL_PORT=3306
+MYSQL_HOST=db
+```
